@@ -5,4 +5,8 @@
     <UserSecretsId>7aee1020-11f7-401b-acfd-d270624201bc</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EvolveDb.Infrastructure\EvolveDb.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

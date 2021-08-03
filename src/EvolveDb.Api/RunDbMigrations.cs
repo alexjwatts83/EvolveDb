@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EvolveDb.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,7 @@ namespace EvolveDb.Api
 
             //var serviceProvider = PersistenceDbMigrations.CreateServices(options.DbConnectionString, options.Tags);
 
-            //PersistenceDbMigrations.EnsureDatabase(options.MasterDb, options.MainDbName);
+            PersistenceDbMigrations.EnsureDatabase(options.MasterDb, options.MainDbName);
 
             //// Put the database update into a scope to ensure that all resources will be disposed.
             //using var scope = serviceProvider.CreateScope();
@@ -36,6 +37,8 @@ namespace EvolveDb.Api
                 var services = scope.ServiceProvider;
                 var config = services.GetRequiredService<IConfiguration>();
                 options.DbConnectionString = config.GetConnectionString("Database");
+                options.MasterDb = config.GetConnectionString("Master");
+                options.MainDbName = config.GetConnectionString("MainDbName");
             }
             return options;
         }
