@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.Extensions.Logging;
 
 namespace EvolveDb.Infrastructure.Persistence
 {
@@ -22,17 +23,27 @@ namespace EvolveDb.Infrastructure.Persistence
             }
         }
 
-        //public static void UpdateDatabase(string connectionString, ILogger log)
-        //{
-        //    try
-        //    {
+        public static void UpdateDatabase(string connectionString, ILogger logger)
+        {
+            try
+            {
+                string filter = "EvolveDb.Infrastructure.Persistence.Migrations";
+                var con = new SqlConnection(connectionString);
+                var evolve = new Evolve.Evolve(con, msg => logger.LogInformation(msg))
+                {
+                    //Locations = new [] { "Persistence/Migrations" },
+                    EmbeddedResourceAssemblies = new[] { typeof(PersistenceDbMigrations).Assembly },
+                    EmbeddedResourceFilters = new[] { filter },
+                    IsEraseDisabled = true
+                };
 
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        throw;
-        //    }
-        //}
+                evolve.Migrate();
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical("Database migration failed.", ex);
+                throw;
+            }
+        }
     }
 }

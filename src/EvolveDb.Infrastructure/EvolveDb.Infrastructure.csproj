@@ -18,13 +18,17 @@
     <ProjectReference Include="..\EvolveDb.Application\EvolveDb.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Migrations\" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<Content Include="Persistence\Migrations\*.sql">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Persistence\Migrations\V1_1_1_1__Create_Locations_table.sql" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Persistence\Migrations\V1_1_1_1__Create_Locations_table.sql" />
 	</ItemGroup>
 </Project>

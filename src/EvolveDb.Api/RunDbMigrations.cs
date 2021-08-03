@@ -43,7 +43,7 @@ namespace EvolveDb.Api
                 options.DbConnectionString = config.GetConnectionString("Database");
                 options.MasterDb = config.GetConnectionString("Master");
                 options.MainDbName = config.GetSection(DbOptionsSettings.MainDbName).Value;
-                _logger.LogInformation("Did stuff");
+                _logger.LogInformation("Retrieved Db Options");
             }
             return options;
         }
