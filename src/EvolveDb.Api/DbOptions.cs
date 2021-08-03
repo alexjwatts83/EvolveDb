@@ -1,6 +1,5 @@
 ﻿namespace EvolveDb.Api
 {
-
     internal class DbOptions
     {
         public string DbConnectionString { get; set; }

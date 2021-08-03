@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EvolveDb.Infrastructure.Persistence;
+using EvolveDb.Infrastructure.Persistence.AppSettings;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +39,7 @@ namespace EvolveDb.Api
                 var config = services.GetRequiredService<IConfiguration>();
                 options.DbConnectionString = config.GetConnectionString("Database");
                 options.MasterDb = config.GetConnectionString("Master");
-                options.MainDbName = config.GetConnectionString("MainDbName");
+                options.MainDbName = config.GetSection(DbOptionsSettings.MainDbName).Value;
             }
             return options;
         }
