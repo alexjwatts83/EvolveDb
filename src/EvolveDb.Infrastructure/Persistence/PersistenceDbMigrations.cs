@@ -21,5 +21,18 @@ namespace EvolveDb.Infrastructure.Persistence
                 connection.Execute($"CREATE DATABASE {name}");
             }
         }
+
+        //public static void UpdateDatabase(string connectionString, ILogger log)
+        //{
+        //    try
+        //    {
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //}
     }
 }

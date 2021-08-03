@@ -15,6 +15,7 @@ namespace EvolveDb.Api
 
     internal static class RunDbMigrations
     {
+        internal static ILogger _logger;
         internal static void Run(IHost host)
         {
             // Run db Migrations
@@ -36,10 +37,13 @@ namespace EvolveDb.Api
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 var config = services.GetRequiredService<IConfiguration>();
+                _logger = loggerFactory.CreateLogger("RunDbMigrations");
                 options.DbConnectionString = config.GetConnectionString("Database");
                 options.MasterDb = config.GetConnectionString("Master");
                 options.MainDbName = config.GetSection(DbOptionsSettings.MainDbName).Value;
+                _logger.LogInformation("Did stuff");
             }
             return options;
         }
