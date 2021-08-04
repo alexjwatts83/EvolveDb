@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Logging;
 
@@ -27,11 +24,10 @@ namespace EvolveDb.Infrastructure.Persistence
         {
             try
             {
-                string filter = "EvolveDb.Infrastructure.Persistence.Migrations";
+                const string filter = "EvolveDb.Infrastructure.Persistence.Migrations";
                 var con = new SqlConnection(connectionString);
                 var evolve = new Evolve.Evolve(con, msg => logger.LogInformation(msg))
                 {
-                    //Locations = new [] { "Persistence/Migrations" },
                     EmbeddedResourceAssemblies = new[] { typeof(PersistenceDbMigrations).Assembly },
                     EmbeddedResourceFilters = new[] { filter },
                     IsEraseDisabled = true
