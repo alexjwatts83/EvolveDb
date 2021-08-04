@@ -16,12 +16,7 @@ namespace EvolveDb.Api
             // Run db Migrations
             var options = GetDbOptions(host);
 
-            //var serviceProvider = PersistenceDbMigrations.CreateServices(options.DbConnectionString, options.Tags);
-
             PersistenceDbMigrations.EnsureDatabase(options.MasterDb, options.MainDbName);
-
-            //// Put the database update into a scope to ensure that all resources will be disposed.
-            //using var scope = serviceProvider.CreateScope();
 
             PersistenceDbMigrations.UpdateDatabase(options.DbConnectionString, _logger);
         }
